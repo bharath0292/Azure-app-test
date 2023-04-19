@@ -1,4 +1,4 @@
-from main import app
+from main import app, a
 from db import create_tables
 
 if __name__ == "__main__":

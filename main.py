@@ -6,13 +6,30 @@
 from flask import Flask, jsonify, request
 import game_controller
 from flask_cors import CORS, cross_origin
+import time
+import threading
 
 app = Flask(__name__)
 CORS(app)
 
+a = 0
+
+def a_loop():
+    global a
+    while True:
+        a += 1
+        time.sleep(5)
+
+t = threading.Thread(target=a_loop)
+t.daemon = True
+t.start()
+
+
+
 @app.route('/null', methods=["GET"])
 def null():
-    return jsonify([])
+    global a
+    return jsonify([a])
 
 @app.route('/games', methods=["GET"])
 def get_games():
